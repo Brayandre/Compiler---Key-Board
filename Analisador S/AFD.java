@@ -24,4 +24,3 @@ public abstract class AFD {
                code.current() == CharacterIterator.DONE;
     }
 }
-nwejifbwiufw

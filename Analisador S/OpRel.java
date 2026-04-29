@@ -6,6 +6,15 @@ public class OpRel extends AFD {
     public Token evaluate(CharacterIterator code) {
         char atual = code.current();
 
+        if (atual == '!') {
+            code.next();
+            if (code.current() == '=') {
+                code.next();
+                return new Token(TipoToken.OP_REL, "!=");
+            }
+            return null;
+        }
+
         if (atual == '<' || atual == '>' || atual == '=') {
             String lexema = String.valueOf(atual);
             code.next();
