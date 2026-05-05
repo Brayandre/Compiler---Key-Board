@@ -1,6 +1,6 @@
 import java.text.CharacterIterator;
 
-public class delimitedAFD extends AFD {
+public class DelimitadorAFD extends AFD {
 
     @Override
     public Token evaluate(CharacterIterator code) {
@@ -18,5 +18,4 @@ public class delimitedAFD extends AFD {
 
         return null;
     }
-}
 }

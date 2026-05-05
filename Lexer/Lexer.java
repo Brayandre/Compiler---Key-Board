@@ -22,7 +22,7 @@ public class Lexer {
         afds.add(new IdAFD());
         afds.add(new NumAFD());
         afds.add(new TextoAFD());
-        afds.add(new DelimitadorAFD());
+        afds.add(new Lexer());
     }
 
     private void skipWhitespace() {
