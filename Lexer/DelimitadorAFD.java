@@ -7,13 +7,28 @@ public class DelimitadorAFD extends AFD {
         char atual = code.current();
 
         switch (atual) {
-            case '$': code.next(); return new Token(TipoToken.DOLLAR,  "$");
-            case '#': code.next(); return new Token(TipoToken.HASH,    "#");
-            case ':': code.next(); return new Token(TipoToken.COLON,   ":");
-            case '(': code.next(); return new Token(TipoToken.LPAREN,  "(");
-            case ')': code.next(); return new Token(TipoToken.RPAREN,  ")");
-            case '{': code.next(); return new Token(TipoToken.LBRACE,  "{");
-            case '}': code.next(); return new Token(TipoToken.RBRACE,  "}");
+            case '$': 
+                code.next(); 
+                return new Token(TipoToken.EOF,  "$");
+
+            case '#': 
+                code.next(); 
+                return new Token(TipoToken.HASH,    "#");
+            case ':': 
+                code.next(); 
+                return new Token(TipoToken.TP,   ":");
+            case '(': 
+                code.next(); 
+                return new Token(TipoToken.LPAREN,  "(");
+            case ')': 
+                code.next(); 
+                return new Token(TipoToken.RPAREN,  ")");
+            case '{': 
+                code.next(); 
+                return new Token(TipoToken.LBRACE,  "{");
+            case '}': 
+                code.next(); 
+                return new Token(TipoToken.RBRACE,  "}");
         }
 
         return null;

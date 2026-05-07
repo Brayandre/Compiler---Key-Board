@@ -7,10 +7,18 @@ public class OpArit extends AFD {
         char atual = code.current();
 
         switch (atual) {
-            case '+': code.next(); return new Token(TipoToken.OP_ARIT, "+");
-            case '-': code.next(); return new Token(TipoToken.OP_ARIT, "-");
-            case '*': code.next(); return new Token(TipoToken.OP_ARIT, "*");
-            case '/': code.next(); return new Token(TipoToken.OP_ARIT, "/");
+            case '+': 
+                code.next(); 
+                return new Token(TipoToken.OP_ARIT, "+");
+            case '-': 
+                code.next(); 
+                return new Token(TipoToken.OP_ARIT, "-");
+            case '*': 
+                code.next(); 
+                return new Token(TipoToken.OP_ARIT, "*");
+            case '/': 
+                code.next(); 
+                return new Token(TipoToken.OP_ARIT, "/");
         }
 
         return null;

@@ -1,16 +1,16 @@
 public enum TipoToken {
     // Programa
-    COMPUTADOR_INICIAR, COMPUTADOR_ENCERRAR,
+    INIT_PROG, TERMINATE_PROG,
     // Comandos
     CAPS, SET, SETCAPS, ALT, TAB, ALT_TAB, SHIFT, ALTGR, INSERT, PRINT,
     // Tipos
     NUMINT, NUMDEC, NUMSTR, NUMBOOL, NUMFLOAT,
     // Operadores
-    ARROW, OP_REL, OP_ARIT,
+    SETA, OP_REL, OP_ARIT,
     // Delimitadores
-    DOLLAR, HASH, COLON, LPAREN, RPAREN, LBRACE, RBRACE,
+    EOF, HASH, TWOP, AP, FP, AC, FC,
     // Literais
-    NUM, ID, TEXTO,
+    NUM, ID, TEXT,
     // Fim
     EOF
 }

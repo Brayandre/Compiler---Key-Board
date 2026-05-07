@@ -17,7 +17,7 @@ public class TextoAFD extends AFD {
 
             if (code.current() == '"') {
                 code.next(); // fecha "
-                return new Token(TipoToken.TEXTO, lexema.toString());
+                return new Token(TipoToken.TEXT, lexema.toString());
             }
         }
 

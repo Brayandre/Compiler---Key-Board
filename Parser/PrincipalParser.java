@@ -1,6 +1,6 @@
 import java.util.List;
  
-public abstract class ParserBase {
+public abstract class PrincipalParser {
  
     protected List<Token> tokens;
     protected int pos;

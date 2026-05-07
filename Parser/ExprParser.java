@@ -1,21 +1,19 @@
 import java.util.List;
  
-/**
- * Regras:
- *   expr   -> fator (op_arit fator)*
- *   fator  -> NUM | ID | '(' expr ')'
- *   op_rel -> '<' | '>' | '<=' | '>=' | '!=' | '=='
- *   op_arit -> '+' | '-' | '*' | '/'
- */
-public class ExprParser extends ParserBase {
+
+//  *   expr   -> fator (op_arit fator)*
+//  *   fator  -> NUM | ID | '(' expr ')'
+//  *   op_rel -> '<' | '>' | '<=' | '>=' | '!=' | '=='
+//  *   op_arit -> '+' | '-' | '*' | '/'
+
+public class ExprParser extends PrincipalParser {
  
     public ExprParser(List<Token> tokens, int startPos) {
         super(tokens, startPos);
     }
- 
-    /**
-     * expr -> fator (op_arit fator)*
-     */
+
+    //  * expr -> fator (op_arit fator)*
+
     public void expr() {
         fator();
         while (check(TipoToken.OP_ARIT)) {
@@ -24,9 +22,8 @@ public class ExprParser extends ParserBase {
         }
     }
  
-    /**
-     * fator -> NUM | ID | '(' expr ')'
-     */
+    //  * fator -> NUM | ID | '(' expr ')'
+
     public void fator() {
         if (check(TipoToken.NUM)) {
             consume(TipoToken.NUM);
@@ -44,9 +41,9 @@ public class ExprParser extends ParserBase {
         }
     }
  
-    /**
-     * op_rel -> '<' | '>' | '<=' | '>=' | '!=' | '=='
-     */
+
+    //  * op_rel -> '<' | '>' | '<=' | '>=' | '!=' | '=='
+
     public void opRel() {
         if (check(TipoToken.OP_REL)) {
             pos++;
@@ -58,9 +55,9 @@ public class ExprParser extends ParserBase {
         }
     }
  
-    /**
-     * op_arit -> '+' | '-' | '*' | '/'
-     */
+
+    //  * op_arit -> '+' | '-' | '*' | '/'
+
     public void opArit() {
         if (check(TipoToken.OP_ARIT)) {
             pos++;

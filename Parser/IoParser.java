@@ -1,51 +1,37 @@
 import java.util.List;
-
-/**
- * Sub-parser responsável pelos comandos de entrada e saída.
- * Regras:
- * cmdLeitura -> 'insert' '(' ID ')' '$'
- * cmdEscrita -> 'prt_scr' '(' conteudo ')' '$'
- * conteudo   -> (TEXTO | ID) ('#' (TEXTO | ID))*
- */
-public class IoParser extends ParserBase {
+public class IoParser extends PrincipalParser {
 
     public IoParser(List<Token> tokens, int startPos) {
         super(tokens, startPos);
     }
 
-    /**
-     * cmdLeitura -> 'insert' '(' ID ')' '$'
-     */
+
+    // cmdLeitura -> ’insert’ ’(’ ID ’)’  ‘$’ 
+
     public void cmdLeitura() {
         consume(TipoToken.INSERT);
-        consume(TipoToken.LPAREN);
+        consume(TipoToken.AP);
         consume(TipoToken.ID);
-        consume(TipoToken.RPAREN);
+        consume(TipoToken.FP);
         consume(TipoToken.DOLLAR);
     }
 
-    /**
-     * cmdEscrita -> 'prt_scr' '(' conteudo ')' '$'
-     */
+    // cmdEscrita -> ’prt_scr ’(’ conteudo ’)’  ‘$‘
+
     public void cmdEscrita() {
         consume(TipoToken.PRINT);
-        consume(TipoToken.LPAREN);
+        consume(TipoToken.AP);
         conteudo();
-        consume(TipoToken.RPAREN);
+        consume(TipoToken.FP);
         consume(TipoToken.DOLLAR);
     }
 
-    /**
-     * conteudo -> (TEXTO | ID) ('#' (TEXTO | ID))*
-     * Permite intercalar textos e IDs separados por '#', ex:
-     *   "Digite um número:" # x
-     *   n1 # "é menor que" # n2 #
-     */
+    // conteudo -> “TEXTO” | ID |“TEXTO“ # ID “TEXTO“ # ID |“TEXTO“ # ID “TEXTO“| 
+
     private void conteudo() {
         conteudoItem();
         while (check(TipoToken.HASH)) {
             consume(TipoToken.HASH);
-            // '#' pode aparecer no final sem item subsequente (conforme exemplo da GLC)
             if (check(TipoToken.TEXTO, TipoToken.ID)) {
                 conteudoItem();
             }

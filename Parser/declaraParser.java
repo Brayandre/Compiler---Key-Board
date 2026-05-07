@@ -1,6 +1,6 @@
 import java.util.List;
 
-public class DeclaraParser extends ParserBase {
+public class DeclaraParser extends PrincipalParser {
  
     public DeclaraParser(List<Token> tokens, int startPos) {
         super(tokens, startPos);
