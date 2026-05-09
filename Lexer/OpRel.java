@@ -1,3 +1,4 @@
+package lexer;
 import java.text.CharacterIterator;
 
 public class OpRel extends AFD {
@@ -6,6 +7,7 @@ public class OpRel extends AFD {
     public Token evaluate(CharacterIterator code) {
         char atual = code.current();
 
+        // verifica a sequencia de != é correspondida
         if (atual == '!') {
             code.next();
             if (code.current() == '=') {
@@ -15,6 +17,7 @@ public class OpRel extends AFD {
             return null;
         }
 
+        // verificar se faz parte dos operadores aritmeticos
         if (atual == '<' || atual == '>' || atual == '=') {
             String lexema = String.valueOf(atual);
             code.next();

@@ -1,3 +1,4 @@
+package lexer;
 import java.text.CharacterIterator;
 
 public class OpArit extends AFD {
@@ -6,6 +7,7 @@ public class OpArit extends AFD {
     public Token evaluate(CharacterIterator code) {
         char atual = code.current();
 
+        // verifica se faz parte dos operadores aritmeticos
         switch (atual) {
             case '+': 
                 code.next(); 

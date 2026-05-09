@@ -1,10 +1,7 @@
+package parser;
 import java.util.List;
- 
-
-//  *   expr   -> fator (op_arit fator)*
-//  *   fator  -> NUM | ID | '(' expr ')'
-//  *   op_rel -> '<' | '>' | '<=' | '>=' | '!=' | '=='
-//  *   op_arit -> '+' | '-' | '*' | '/'
+import lexer.TipoToken;
+import lexer.Token;
 
 public class ExprParser extends PrincipalParser {
  
@@ -29,15 +26,13 @@ public class ExprParser extends PrincipalParser {
             consume(TipoToken.NUM);
         } else if (check(TipoToken.ID)) {
             consume(TipoToken.ID);
-        } else if (check(TipoToken.LPAREN)) {
-            consume(TipoToken.LPAREN);
+        } else if (check(TipoToken.AP)) {
+            consume(TipoToken.AP);
             expr();
-            consume(TipoToken.RPAREN);
+            consume(TipoToken.FP);
         } else {
             throw new RuntimeException(
-                "[ERRO SINTÁTICO] Fator esperado (NUM, ID ou expressão entre parênteses), " +
-                "encontrado: \"" + peek().getLexema() + "\" (" + tipo() + ") na posição " + pos
-            );
+                "[ERRO SINTÁTICO] Fator esperado (NUM, ID ou expressão entre parênteses), " + "encontrado: \"" + peek().getLexema() + "\" (" + tipo() + ") na posição " + pos);
         }
     }
  
@@ -48,10 +43,7 @@ public class ExprParser extends PrincipalParser {
         if (check(TipoToken.OP_REL)) {
             pos++;
         } else {
-            throw new RuntimeException(
-                "[ERRO SINTÁTICO] Operador relacional esperado (<, >, <=, >=, !=, ==), " +
-                "encontrado: \"" + peek().getLexema() + "\" na posição " + pos
-            );
+            throw new RuntimeException("[ERRO SINTÁTICO] Operador relacional esperado (<, >, <=, >=, !=, ==), " + "encontrado: \"" + peek().getLexema() + "\" na posição " + pos);
         }
     }
  
@@ -62,10 +54,7 @@ public class ExprParser extends PrincipalParser {
         if (check(TipoToken.OP_ARIT)) {
             pos++;
         } else {
-            throw new RuntimeException(
-                "[ERRO SINTÁTICO] Operador aritmético esperado (+, -, *, /), " +
-                "encontrado: \"" + peek().getLexema() + "\" na posição " + pos
-            );
+            throw new RuntimeException("[ERRO SINTÁTICO] Operador aritmético esperado (+, -, *, /), " + "encontrado: \"" + peek().getLexema() + "\" na posição " + pos);
         }
     }
 }

@@ -1,7 +1,10 @@
+package parser;
 import java.util.List;
-
+import lexer.TipoToken;
+import lexer.Token;
 public class FlowParser extends PrincipalParser {
 
+    //Garantia de condição
     private CmdParser cmdParser;
     private ExprParser exprParser;
     private DeclaraParser declParser;
@@ -10,19 +13,22 @@ public class FlowParser extends PrincipalParser {
         super(tokens, startPos);
     }
 
-    public void injectDeps(CmdParser cmdParser, ExprParser exprParser, DeclaralParser declParser) {
+    public void injectDeps(CmdParser cmdParser, ExprParser exprParser, DeclaraParser declParser) {
         this.cmdParser  = cmdParser;
         this.exprParser = exprParser;
         this.declParser = declParser;
     }
 
+    // Os cursores devem se refletir entre os Parser cmd, expr, decl
+
+    // Envia a nova posiçao do cursor, 
     private void sync() {
         cmdParser.pos  = this.pos;
         exprParser.pos = this.pos;
         declParser.pos = this.pos;
     }
 
-    /** Recupera pos atualizado dos sub-parsers após suas chamadas. */
+    // Recupera a posiçao do cursor
     private void syncBack() {
         this.pos = cmdParser.pos;
         exprParser.pos = this.pos;
@@ -70,7 +76,7 @@ public class FlowParser extends PrincipalParser {
         consume(TipoToken.SHIFT);
         consume(TipoToken.AP);
         exprRel();
-        consume(TipoToken.AC);
+        consume(TipoToken.FP);
         consume(TipoToken.AC);
         bloco();
         consume(TipoToken.FC);
@@ -83,7 +89,7 @@ public class FlowParser extends PrincipalParser {
         consume(TipoToken.AP);
 
         sync();
-        DeclaraParser.declaraFor();
+        declParser.declaraFor();
         this.pos = declParser.pos;
 
         consume(TipoToken.TWOP);
@@ -91,7 +97,7 @@ public class FlowParser extends PrincipalParser {
         // condição
         exprRel();
 
-        consume(TipoToken.EOF);
+        consume(TipoToken.CIF);
         consume(TipoToken.TWOP);
 
         // incremento

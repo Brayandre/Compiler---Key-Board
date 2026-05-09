@@ -1,21 +1,20 @@
 // O arquivo atual tem só o construtor. Adiciona os autômatos que faltam no construtor e o corpo completo da classe
+package lexer;
 import java.text.CharacterIterator;
 import java.text.StringCharacterIterator;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Lexer {
+public class PrincipalLexer {
 
     private List<Token> tokens;
     private CharacterIterator code;
     private List<AFD> afds;
 
-    public Lexer(String source) {
+    public PrincipalLexer(String source) {
         tokens = new ArrayList<>();
         this.code = new StringCharacterIterator(source);
         afds = new ArrayList<>();
-
-        // ORDEM IMPORTA: Arrow antes de OpArit (ambos começam com -)
         afds.add(new ArrowAFD());
         afds.add(new OpRel());
         afds.add(new OpArit());
@@ -25,6 +24,7 @@ public class Lexer {
         afds.add(new DelimitadorAFD());
     }
 
+    // ignora os espaçoes/tabs
     private void skipWhitespace() {
         while (code.current() == ' '  ||
                code.current() == '\t' ||
@@ -34,6 +34,7 @@ public class Lexer {
         }
     }
 
+    // Verificação de tokens, inicia em Arrow pra n dar conflito c os operadores relacionais
     private Token searchNextToken() {
         for (AFD afd : afds) {
             Token t = afd.evaluate(code);

@@ -1,3 +1,4 @@
+package lexer;
 import java.text.CharacterIterator;
 
 public class IdAFD extends AFD {
@@ -7,8 +8,11 @@ public class IdAFD extends AFD {
         char atual = code.current();
 
         if (Character.isLetter(atual)) {
-            StringBuilder lexemaBuilder = new StringBuilder();
 
+            // verifica se o token inicial explicitamente por uma string
+            StringBuilder lexemaBuilder = new StringBuilder();
+            
+            // enquanto so prox token forem letras, numeros ou "_" constroi-se o lexema
             while (Character.isLetterOrDigit(code.current()) || code.current() == '_') {
                 lexemaBuilder.append(code.current());
                 code.next();
@@ -16,7 +20,7 @@ public class IdAFD extends AFD {
 
             String lexema = lexemaBuilder.toString();
 
-            // palavras reservadas
+            // verifica se o lexema é alguma palavra reservada, se sim, retorna ela, senão, cria um variavel
             switch (lexema) {
                 case "CAPS": return new Token(TipoToken.CAPS, lexema);
                 case "SET": return new Token(TipoToken.SET, lexema);

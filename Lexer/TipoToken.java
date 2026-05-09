@@ -1,3 +1,4 @@
+package lexer;
 public enum TipoToken {
     // Programa
     INIT_PROG, TERMINATE_PROG,
@@ -8,7 +9,7 @@ public enum TipoToken {
     // Operadores
     SETA, OP_REL, OP_ARIT,
     // Delimitadores
-    EOF, HASH, TWOP, AP, FP, AC, FC,
+    CIF, HASH, TWOP, AP, FP, AC, FC,
     // Literais
     NUM, ID, TEXT,
     // Fim

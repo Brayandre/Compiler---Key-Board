@@ -1,16 +1,19 @@
+package lexer;
 import java.io.*;
 import java.util.List;
 
-public class init {
+public class Init {
     public static void main(String[] args) throws Exception {
         if (args.length == 0) {
             System.out.println("Uso: java init <arquivo.kb>");
             return;
         }
 
+        // pega o conteudo do arquivo.kb 
+
         String conteudo = new String(new FileInputStream(args[0]).readAllBytes());
 
-        Lexer lexer = new Lexer(conteudo);
+        PrincipalLexer lexer = new PrincipalLexer(conteudo);
 
         try {
             List<Token> tokens = lexer.getTokens();

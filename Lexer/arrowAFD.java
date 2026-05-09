@@ -1,9 +1,12 @@
+package lexer;
 import java.text.CharacterIterator;
 
 public class ArrowAFD extends AFD {
 
     @Override
     public Token evaluate(CharacterIterator code) {
+        // Aqui distingue-se a interpretação do token "-->", "-", ">"
+
         if (code.current() != '-'){
             return null;
         }

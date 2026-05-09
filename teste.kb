@@ -1,0 +1,10 @@
+computador_iniciar
+CAPS numint n1 $
+SETCAPS numint n2 --> 13 $
+SET n1 --> 32 $
+ALT ( n1 < n2 )
+{
+SET n1 --> 62 $
+}
+prt_scr ( "resultado" # n1 ) $
+computador_encerrar $

@@ -1,7 +1,9 @@
+package lexer;
 public class Token {
     private TipoToken tipo;
     private String lexema;
 
+    // definição do lexema
     public Token(TipoToken tipo, String lexema) {
         this.tipo = tipo;
         this.lexema = lexema;
