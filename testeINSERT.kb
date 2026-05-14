@@ -1,0 +1,22 @@
+computador_iniciar
+
+CAPS numint x $
+CAPS numint y $
+
+prt_scr ( "Digite o primeiro numero" ) $
+insert ( x ) $
+
+prt_scr ( "Digite o segundo numero" ) $
+insert ( y ) $
+
+ALT ( x < y ) {
+	prt_scr ( "x e menor que y" # x ) $
+}
+ALT_TAB ( x == y ) {
+	prt_scr ( "x e igual a y" # x ) $
+}
+TAB {
+	prt_scr ( "x e maior que y" # x ) $
+}
+
+computador_encerrar $

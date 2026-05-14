@@ -1,0 +1,11 @@
+computador_iniciar
+
+SETCAPS numint x --> 0 $
+SETCAPS numint limite --> 5 $
+
+SHIFT ( x < limite ) {
+	prt_scr ( "valor de x" # x ) $
+	SET x --> x + 1 $
+}
+
+computador_encerrar $

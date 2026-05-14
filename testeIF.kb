@@ -1,0 +1,10 @@
+computador_iniciar
+SETCAPS numint x --> 10 $
+SETCAPS numint y --> 3 $
+ALT ( x < y ) {
+prt_scr ( "x menor que y" # x ) $
+}
+TAB {
+prt_scr ( "x maior ou igual a y" # x ) $
+}
+computador_encerrar $
