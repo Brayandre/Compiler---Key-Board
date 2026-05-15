@@ -1,0 +1,11 @@
+computador_iniciar 
+CAPS numint n1 $ 
+SETCAPS num int n2 --> 13 $ 
+SET n1 --> 32 $ 
+ALT ( n1 < n2 ) {
+    SET n1 --> 62 $ 
+    ALTGR (CAPS numint x $:  x < n1 $ :  x+#+#  )  
+    prt_scr (“Digite um número:”# x)  $ 
+} TAB {
+ prt_scr (n1 # “é menor que” n2 #)  $  
+}  

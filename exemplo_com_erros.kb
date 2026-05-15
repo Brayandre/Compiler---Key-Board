@@ -1,0 +1,13 @@
+computador_iniciar
+CAPS numint x $
+CAPS numint x $
+SETCAPS numstr nome --> 42 $
+SET indefinida --> 10 $
+prt_scr ("nome=" # nome # ", desconhecida=" # zzz) $
+ALT (x < nome) {
+    prt_scr ("oi") $
+}
+ALTGR (CAPS numstr j $ : j < 5 $ : j + # + #) {
+    prt_scr ("err") $
+}
+computador_encerrar $
