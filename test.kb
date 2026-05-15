@@ -1,0 +1,9 @@
+computador_iniciar
+
+SETCAPS numint limite --> 5 $
+
+ALTGR ( numint i $ : i < limite $ : i+#+# ) {
+	prt_scr ( "valor de i" # i ) $
+}
+
+computador_encerrar $

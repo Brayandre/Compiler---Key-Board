@@ -1,7 +1,9 @@
 package parser;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import lexer.TipoToken;
-import lexer.Token;
+import lexer.Token;  
 
 public class Tradutor extends PrincipalParser { 
 
@@ -9,6 +11,8 @@ public class Tradutor extends PrincipalParser {
     private int indent = 0;
     // variavel responsavel por incluir pachage q libera o uso de inser e print no go 
     private boolean usaFmt = false;
+
+    private final Map<String, String> tabelaSimbolos = new HashMap<>();
 
     public Tradutor(List<Token> tokens) {
         super(tokens, 0);
@@ -99,6 +103,7 @@ public class Tradutor extends PrincipalParser {
         consume(TipoToken.SETA);
         String valor = expr();
         consume(TipoToken.CIF);
+        tabelaSimbolos.put(nome, valor);
         traduz("var " + nome + " " + goTipo + " = " + valor);
     }
 
@@ -234,8 +239,8 @@ public class Tradutor extends PrincipalParser {
         consume(TipoToken.FP);
         consume(TipoToken.AC);
 
-       
-        traduz("for " + varFor + " := 0; " + cond + "; " + incr + " {");
+        String valorInicial = tabelaSimbolos.getOrDefault(varFor, "0");
+        traduz("for " + varFor + " := " + valorInicial + "; " + cond + "; " + incr + " {");
         indent++;
         bloco();
         indent--;
