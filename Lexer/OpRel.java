@@ -1,4 +1,5 @@
 package lexer;
+
 import java.text.CharacterIterator;
 
 public class OpRel extends AFD {
@@ -23,13 +24,13 @@ public class OpRel extends AFD {
             code.next();
 
             if (code.current() == '=') {
-                lexema += "="; 
-                code.next();  
+                lexema += "=";
+                code.next();
             }
 
             return new Token(TipoToken.OP_REL, lexema);
         }
 
-        return null; 
+        return null;
     }
 }

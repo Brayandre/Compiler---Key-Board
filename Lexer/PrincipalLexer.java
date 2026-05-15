@@ -1,5 +1,6 @@
 // O arquivo atual tem só o construtor. Adiciona os autômatos que faltam no construtor e o corpo completo da classe
 package lexer;
+
 import java.text.CharacterIterator;
 import java.text.StringCharacterIterator;
 import java.util.ArrayList;
@@ -26,19 +27,21 @@ public class PrincipalLexer {
 
     // ignora os espaçoes/tabs
     private void skipWhitespace() {
-        while (code.current() == ' '  ||
-               code.current() == '\t' ||
-               code.current() == '\r' ||
-               code.current() == '\n') {
+        while (code.current() == ' ' ||
+                code.current() == '\t' ||
+                code.current() == '\r' ||
+                code.current() == '\n') {
             code.next();
         }
     }
 
-    // Verificação de tokens, inicia em Arrow pra n dar conflito c os operadores relacionais
+    // Verificação de tokens, inicia em Arrow pra n dar conflito c os operadores
+    // relacionais
     private Token searchNextToken() {
         for (AFD afd : afds) {
             Token t = afd.evaluate(code);
-            if (t != null) return t;
+            if (t != null)
+                return t;
         }
         return null;
     }
@@ -47,14 +50,14 @@ public class PrincipalLexer {
         while (code.current() != CharacterIterator.DONE) {
             skipWhitespace();
 
-            if (code.current() == CharacterIterator.DONE) break;
+            if (code.current() == CharacterIterator.DONE)
+                break;
 
             Token t = searchNextToken();
 
             if (t == null) {
                 throw new RuntimeException(
-                    "[ERRO LÉXICO] Símbolo não reconhecido: '" + code.current() + "'"
-                );
+                        "[ERRO LÉXICO] Símbolo não reconhecido: '" + code.current() + "'");
             }
 
             tokens.add(t);

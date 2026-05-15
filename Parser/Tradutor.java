@@ -1,15 +1,17 @@
 package parser;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import lexer.TipoToken;
-import lexer.Token;  
+import lexer.Token;
 
-public class Tradutor extends PrincipalParser { 
+public class Tradutor extends PrincipalParser {
 
     private final StringBuilder saida = new StringBuilder();
     private int indent = 0;
-    // variavel responsavel por incluir pachage q libera o uso de inser e print no go 
+    // variavel responsavel por incluir pachage q libera o uso de inser e print no
+    // go
     private boolean usaFmt = false;
 
     private final Map<String, String> tabelaSimbolos = new HashMap<>();
@@ -37,17 +39,23 @@ public class Tradutor extends PrincipalParser {
 
     // altera os tipo da .kb para a .go
     private String mapTipo(TipoToken t) {
-        switch(t) {
-            case NUMINT:   return "int";
-            case NUMDEC:   return "float64";  
-            case NUMFLOAT: return "float64";
-            case NUMSTR:   return "string";
-            case NUMBOOL:  return "bool";
-            default: throw new RuntimeException("[TRADUTOR] Tipo desconhecido: " + t);
+        switch (t) {
+            case NUMINT:
+                return "int";
+            case NUMDEC:
+                return "float64";
+            case NUMFLOAT:
+                return "float64";
+            case NUMSTR:
+                return "string";
+            case NUMBOOL:
+                return "bool";
+            default:
+                throw new RuntimeException("[TRADUTOR] Tipo desconhecido: " + t);
         }
     }
 
-    //Constroi o codigo principal
+    // Constroi o codigo principal
     private void prog() {
         consume(TipoToken.INIT_PROG);
         traduz("func main() {");
@@ -62,29 +70,38 @@ public class Tradutor extends PrincipalParser {
     private void bloco() {
         cmd();
         while (check(TipoToken.CAPS, TipoToken.SET, TipoToken.SETCAPS,
-                     TipoToken.INSERT, TipoToken.PRINT,
-                     TipoToken.ALT, TipoToken.SHIFT, TipoToken.ALTGR)) {
+                TipoToken.INSERT, TipoToken.PRINT,
+                TipoToken.ALT, TipoToken.SHIFT, TipoToken.ALTGR)) {
             cmd();
         }
     }
 
     // define o cada palavra é em GO
     private void cmd() {
-        if (check(TipoToken.CAPS))    { cmdDeclara();  }
-        else if (check(TipoToken.SETCAPS)) { cmdSetLine();  }
-        else if (check(TipoToken.SET))     { cmdExpr();     }
-        else if (check(TipoToken.INSERT))  { cmdLeitura();  }
-        else if (check(TipoToken.PRINT))   { cmdEscrita();  }
-        else if (check(TipoToken.ALT))     { cmdSe();       }
-        else if (check(TipoToken.SHIFT))   { cmdWhile();    }
-        else if (check(TipoToken.ALTGR))   { cmdFor();      }
-        else {
+        if (check(TipoToken.CAPS)) {
+            cmdDeclara();
+        } else if (check(TipoToken.SETCAPS)) {
+            cmdSetLine();
+        } else if (check(TipoToken.SET)) {
+            cmdExpr();
+        } else if (check(TipoToken.INSERT)) {
+            cmdLeitura();
+        } else if (check(TipoToken.PRINT)) {
+            cmdEscrita();
+        } else if (check(TipoToken.ALT)) {
+            cmdSe();
+        } else if (check(TipoToken.SHIFT)) {
+            cmdWhile();
+        } else if (check(TipoToken.ALTGR)) {
+            cmdFor();
+        } else {
             throw new RuntimeException(
-                "[ERRO SINTÁTICO] Comando inválido: \"" + peek().getLexema() + "\" na posição " + pos);
+                    "[ERRO SINTÁTICO] Comando inválido: \"" + peek().getLexema() + "\" na posição " + pos);
         }
     }
 
-    //----------------------------------------- GERAÇÃO DO CODIGO ---------------------------------------//
+    // ----------------------------------------- GERAÇÃO DO CODIGO
+    // ---------------------------------------//
 
     private void cmdDeclara() {
         consume(TipoToken.CAPS);
@@ -156,7 +173,7 @@ public class Tradutor extends PrincipalParser {
             return consume(TipoToken.ID).getLexema();
         } else {
             throw new RuntimeException(
-                "[ERRO SINTÁTICO] Conteúdo inválido: \"" + peek().getLexema() + "\"");
+                    "[ERRO SINTÁTICO] Conteúdo inválido: \"" + peek().getLexema() + "\"");
         }
     }
 
@@ -220,18 +237,19 @@ public class Tradutor extends PrincipalParser {
         consume(TipoToken.AP);
 
         // consome CAPS opcional
-        if (check(TipoToken.CAPS)) consume(TipoToken.CAPS);
-        consumeTipo();  // consome o tipo (descartado, Go infere com :=)
+        if (check(TipoToken.CAPS))
+            consume(TipoToken.CAPS);
+        consumeTipo(); // consome o tipo (descartado, Go infere com :=)
         String varFor = consume(TipoToken.ID).getLexema();
         consume(TipoToken.CIF);
 
-        consume(TipoToken.TWOP);  
+        consume(TipoToken.TWOP);
 
         // condição
         String cond = exprRel();
 
-        consume(TipoToken.CIF);   
-        consume(TipoToken.TWOP);  
+        consume(TipoToken.CIF);
+        consume(TipoToken.TWOP);
 
         // incremento
         String incr = cmdRecurs();
@@ -249,20 +267,22 @@ public class Tradutor extends PrincipalParser {
     }
 
     private String cmdRecurs() {
-        String id  = consume(TipoToken.ID).getLexema();
+        String id = consume(TipoToken.ID).getLexema();
         String op1 = consume(TipoToken.OP_ARIT).getLexema();
         consume(TipoToken.HASH);
         String op2 = consume(TipoToken.OP_ARIT).getLexema();
         consume(TipoToken.HASH);
 
-        if (op1.equals("+") && op2.equals("+")) return id + "++";
-        if (op1.equals("-") && op2.equals("-")) return id + "--";
+        if (op1.equals("+") && op2.equals("+"))
+            return id + "++";
+        if (op1.equals("-") && op2.equals("-"))
+            return id + "--";
         return id + " " + op1 + op2;
     }
 
     private String exprRel() {
         String esq = expr();
-        String op  = consume(TipoToken.OP_REL).getLexema();
+        String op = consume(TipoToken.OP_REL).getLexema();
         String dir = expr();
         return esq + " " + op + " " + dir;
     }
@@ -271,7 +291,7 @@ public class Tradutor extends PrincipalParser {
         StringBuilder resultado = new StringBuilder(fator());
         while (check(TipoToken.OP_ARIT)) {
             String op = consume(TipoToken.OP_ARIT).getLexema();
-            String f  = fator();
+            String f = fator();
             resultado.append(" ").append(op).append(" ").append(f);
         }
         return resultado.toString();
@@ -289,25 +309,27 @@ public class Tradutor extends PrincipalParser {
             return "(" + e + ")";
         } else {
             throw new RuntimeException(
-                "[ERRO SINTÁTICO] Fator esperado (NUM, ID ou expressão), encontrado: \""
-                + peek().getLexema() + "\" na posição " + pos);
+                    "[ERRO SINTÁTICO] Fator esperado (NUM, ID ou expressão), encontrado: \""
+                            + peek().getLexema() + "\" na posição " + pos);
         }
     }
 
     private void consumeTipo() {
         if (check(TipoToken.NUMINT, TipoToken.NUMDEC, TipoToken.NUMSTR,
-                  TipoToken.NUMBOOL, TipoToken.NUMFLOAT)) {
+                TipoToken.NUMBOOL, TipoToken.NUMFLOAT)) {
             pos++;
         } else {
             throw new RuntimeException(
-                "[ERRO SINTÁTICO] Tipo esperado, encontrado: \"" + peek().getLexema() + "\"");
+                    "[ERRO SINTÁTICO] Tipo esperado, encontrado: \"" + peek().getLexema() + "\"");
         }
     }
 
     private void removerUltimaLinha() {
         int len = saida.length();
-        if (len == 0) return;
-        if (saida.charAt(len - 1) == '\n') saida.deleteCharAt(--len);
+        if (len == 0)
+            return;
+        if (saida.charAt(len - 1) == '\n')
+            saida.deleteCharAt(--len);
         while (len > 0 && saida.charAt(len - 1) != '\n') {
             saida.deleteCharAt(--len);
         }

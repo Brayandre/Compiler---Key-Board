@@ -1,15 +1,17 @@
 package lexer;
+
 import java.text.CharacterIterator;
 
 public class NumAFD extends AFD {
 
     @Override
     public Token evaluate(CharacterIterator code) {
-        if (!Character.isDigit(code.current())) return null;
-    
+        if (!Character.isDigit(code.current()))
+            return null;
+
         StringBuilder lexema = new StringBuilder();
-        
-        // verifica a presença de numeros, podendo ser decimal 
+
+        // verifica a presença de numeros, podendo ser decimal
         while (Character.isDigit(code.current())) {
             lexema.append(code.current());
             code.next();
@@ -27,7 +29,7 @@ public class NumAFD extends AFD {
                 code.previous();
             }
         }
-    
+
         return new Token(TipoToken.NUM, lexema.toString());
     }
 }

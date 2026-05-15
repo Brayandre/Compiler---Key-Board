@@ -12,7 +12,7 @@ import java.util.Map;
  * { ... } de cmdSe / cmdWhile / cmdFor e encolhe ao sair.
  *
  * - declarar(...) insere no topo. Falha se ja existir no MESMO escopo.
- * - buscar(nome)  procura do topo ate a base (escopo mais externo).
+ * - buscar(nome) procura do topo ate a base (escopo mais externo).
  */
 public class TabelaSimbolos {
 
@@ -53,11 +53,15 @@ public class TabelaSimbolos {
         return true;
     }
 
-    /** Busca o simbolo do escopo mais interno para o mais externo. Null se nao existir. */
+    /**
+     * Busca o simbolo do escopo mais interno para o mais externo. Null se nao
+     * existir.
+     */
     public Simbolo buscar(String nome) {
         for (Map<String, Simbolo> escopo : escopos) {
             Simbolo s = escopo.get(nome);
-            if (s != null) return s;
+            if (s != null)
+                return s;
         }
         return null;
     }
@@ -67,11 +71,14 @@ public class TabelaSimbolos {
         return escopos.peek().get(nome);
     }
 
-    /** Itera apenas o escopo global (para gerar warnings de variaveis nao usadas). */
+    /**
+     * Itera apenas o escopo global (para gerar warnings de variaveis nao usadas).
+     */
     public Iterable<Simbolo> escopoGlobal() {
         // o ultimo da pilha (base) e o global
         Map<String, Simbolo> global = null;
-        for (Map<String, Simbolo> e : escopos) global = e;
+        for (Map<String, Simbolo> e : escopos)
+            global = e;
         return global == null ? java.util.Collections.emptyList() : global.values();
     }
 }

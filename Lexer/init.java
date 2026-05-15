@@ -1,4 +1,5 @@
 package lexer;
+
 import java.io.*;
 import java.util.List;
 
@@ -9,7 +10,7 @@ public class Init {
             return;
         }
 
-        // pega o conteudo do arquivo.kb 
+        // pega o conteudo do arquivo.kb
 
         String conteudo = new String(new FileInputStream(args[0]).readAllBytes());
 

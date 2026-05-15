@@ -1,4 +1,5 @@
 package lexer;
+
 import java.text.CharacterIterator;
 
 public class OpArit extends AFD {
@@ -9,17 +10,17 @@ public class OpArit extends AFD {
 
         // verifica se faz parte dos operadores aritmeticos
         switch (atual) {
-            case '+': 
-                code.next(); 
+            case '+':
+                code.next();
                 return new Token(TipoToken.OP_ARIT, "+");
-            case '-': 
-                code.next(); 
+            case '-':
+                code.next();
                 return new Token(TipoToken.OP_ARIT, "-");
-            case '*': 
-                code.next(); 
+            case '*':
+                code.next();
                 return new Token(TipoToken.OP_ARIT, "*");
-            case '/': 
-                code.next(); 
+            case '/':
+                code.next();
                 return new Token(TipoToken.OP_ARIT, "/");
         }
 

@@ -1,4 +1,5 @@
 package lexer;
+
 public enum TipoToken {
     // Programa
     INIT_PROG, TERMINATE_PROG,

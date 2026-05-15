@@ -1,9 +1,10 @@
 package parser;
+
 import java.util.List;
 import lexer.TipoToken;
 import lexer.Token;
 
-public class CmdParser extends PrincipalParser{
+public class CmdParser extends PrincipalParser {
 
     private DeclaraParser declParser;
     private IoParser ioParser;
@@ -54,9 +55,8 @@ public class CmdParser extends PrincipalParser{
 
         } else {
             throw new RuntimeException(
-                "[ERRO SINTÁTICO] Comando inválido: \"" +
-                peek().getLexema() + "\" na posição " + pos
-            );
+                    "[ERRO SINTÁTICO] Comando inválido: \"" +
+                            peek().getLexema() + "\" na posição " + pos);
         }
     }
 
@@ -85,8 +85,8 @@ public class CmdParser extends PrincipalParser{
         consume(TipoToken.CIF);
     }
 
-    public void injectDeps(DeclaraParser d, IoParser io, 
-                           FlowParser flow, ExprParser expr) {
+    public void injectDeps(DeclaraParser d, IoParser io,
+            FlowParser flow, ExprParser expr) {
         this.declParser = d;
         this.ioParser = io;
         this.flowParser = flow;
@@ -97,8 +97,8 @@ public class CmdParser extends PrincipalParser{
         cmd(); // pelo menos um comando
         // continua enquanto o próximo token puder iniciar um comando
         while (check(TipoToken.CAPS, TipoToken.SET, TipoToken.SETCAPS,
-                    TipoToken.INSERT, TipoToken.PRINT,
-                    TipoToken.ALT, TipoToken.SHIFT, TipoToken.ALTGR)) {
+                TipoToken.INSERT, TipoToken.PRINT,
+                TipoToken.ALT, TipoToken.SHIFT, TipoToken.ALTGR)) {
             cmd();
         }
     }

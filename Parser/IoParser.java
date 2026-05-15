@@ -1,17 +1,18 @@
 package parser;
+
 import java.util.List;
 import lexer.TipoToken;
 import lexer.Token;
+
 public class IoParser extends PrincipalParser {
 
-    //DECLARAÇÕES UNICAS
+    // DECLARAÇÕES UNICAS
 
     public IoParser(List<Token> tokens, int startPos) {
         super(tokens, startPos);
     }
 
-
-    // cmdLeitura -> ’insert’ ’(’ ID ’)’  ‘$’ 
+    // cmdLeitura -> ’insert’ ’(’ ID ’)’ ‘$’
 
     public void cmdLeitura() {
         consume(TipoToken.INSERT);
@@ -21,7 +22,7 @@ public class IoParser extends PrincipalParser {
         consume(TipoToken.CIF);
     }
 
-    // cmdEscrita -> ’prt_scr ’(’ conteudo ’)’  ‘$‘
+    // cmdEscrita -> ’prt_scr ’(’ conteudo ’)’ ‘$‘
 
     public void cmdEscrita() {
         consume(TipoToken.PRINT);
@@ -31,7 +32,7 @@ public class IoParser extends PrincipalParser {
         consume(TipoToken.CIF);
     }
 
-    // conteudo -> “TEXTO” | ID |“TEXTO“ # ID “TEXTO“ # ID |“TEXTO“ # ID “TEXTO“| 
+    // conteudo -> “TEXTO” | ID |“TEXTO“ # ID “TEXTO“ # ID |“TEXTO“ # ID “TEXTO“|
 
     private void conteudo() {
         conteudoItem();
@@ -49,7 +50,8 @@ public class IoParser extends PrincipalParser {
         } else if (check(TipoToken.ID)) {
             consume(TipoToken.ID);
         } else {
-            throw new RuntimeException("[ERRO SINTÁTICO] Conteúdo de prt_scr deve ser TEXTO ou ID, " + "encontrado: \"" + peek().getLexema() + "\" na posição " + pos);
+            throw new RuntimeException("[ERRO SINTÁTICO] Conteúdo de prt_scr deve ser TEXTO ou ID, " + "encontrado: \""
+                    + peek().getLexema() + "\" na posição " + pos);
         }
     }
 }

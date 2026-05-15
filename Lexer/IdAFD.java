@@ -1,4 +1,5 @@
 package lexer;
+
 import java.text.CharacterIterator;
 
 public class IdAFD extends AFD {
@@ -9,10 +10,7 @@ public class IdAFD extends AFD {
 
         if (Character.isLetter(atual)) {
 
-            // verifica se o token inicial explicitamente por uma string
             StringBuilder lexemaBuilder = new StringBuilder();
-            
-            // enquanto so prox token forem letras, numeros ou "_" constroi-se o lexema
             while (Character.isLetterOrDigit(code.current()) || code.current() == '_') {
                 lexemaBuilder.append(code.current());
                 code.next();
@@ -20,26 +18,43 @@ public class IdAFD extends AFD {
 
             String lexema = lexemaBuilder.toString();
 
-            // verifica se o lexema é alguma palavra reservada, se sim, retorna ela, senão, cria um variavel
             switch (lexema) {
-                case "CAPS": return new Token(TipoToken.CAPS, lexema);
-                case "SET": return new Token(TipoToken.SET, lexema);
-                case "ALT": return new Token(TipoToken.ALT, lexema);
-                case "SHIFT": return new Token(TipoToken.SHIFT, lexema);
-                case "ALTGR": return new Token(TipoToken.ALTGR, lexema);
-                case "insert": return new Token(TipoToken.INSERT, lexema);
-                case "prt_scr": return new Token(TipoToken.PRINT, lexema);
-                case "computador_iniciar":  return new Token(TipoToken.INIT_PROG, lexema);
-                case "computador_encerrar": return new Token(TipoToken.TERMINATE_PROG, lexema);
-                case "SETCAPS": return new Token(TipoToken.SETCAPS, lexema);
-                case "TAB":     return new Token(TipoToken.TAB, lexema);
-                case "ALT_TAB": return new Token(TipoToken.ALT_TAB, lexema);
-                case "numint":   return new Token(TipoToken.NUMINT, lexema);
-                case "numdec":   return new Token(TipoToken.NUMDEC, lexema);
-                case "numstr":   return new Token(TipoToken.NUMSTR, lexema);
-                case "numbool":  return new Token(TipoToken.NUMBOOL, lexema);
-                case "numfloat": return new Token(TipoToken.NUMFLOAT, lexema);
-                default: return new Token(TipoToken.ID, lexema);
+                case "CAPS":
+                    return new Token(TipoToken.CAPS, lexema);
+                case "SET":
+                    return new Token(TipoToken.SET, lexema);
+                case "ALT":
+                    return new Token(TipoToken.ALT, lexema);
+                case "SHIFT":
+                    return new Token(TipoToken.SHIFT, lexema);
+                case "ALTGR":
+                    return new Token(TipoToken.ALTGR, lexema);
+                case "insert":
+                    return new Token(TipoToken.INSERT, lexema);
+                case "prt_scr":
+                    return new Token(TipoToken.PRINT, lexema);
+                case "computador_iniciar":
+                    return new Token(TipoToken.INIT_PROG, lexema);
+                case "computador_encerrar":
+                    return new Token(TipoToken.TERMINATE_PROG, lexema);
+                case "SETCAPS":
+                    return new Token(TipoToken.SETCAPS, lexema);
+                case "TAB":
+                    return new Token(TipoToken.TAB, lexema);
+                case "ALT_TAB":
+                    return new Token(TipoToken.ALT_TAB, lexema);
+                case "numint":
+                    return new Token(TipoToken.NUMINT, lexema);
+                case "numdec":
+                    return new Token(TipoToken.NUMDEC, lexema);
+                case "numstr":
+                    return new Token(TipoToken.NUMSTR, lexema);
+                case "numbool":
+                    return new Token(TipoToken.NUMBOOL, lexema);
+                case "numfloat":
+                    return new Token(TipoToken.NUMFLOAT, lexema);
+                default:
+                    return new Token(TipoToken.ID, lexema);
 
             }
         }

@@ -29,13 +29,21 @@ public class ErroSemantico {
 
     public ErroSemantico(Categoria categoria, String mensagem, int posicao) {
         this.categoria = categoria;
-        this.mensagem  = mensagem;
-        this.posicao   = posicao;
+        this.mensagem = mensagem;
+        this.posicao = posicao;
     }
 
-    public Categoria getCategoria() { return categoria; }
-    public String    getMensagem()  { return mensagem; }
-    public int       getPosicao()   { return posicao; }
+    public Categoria getCategoria() {
+        return categoria;
+    }
+
+    public String getMensagem() {
+        return mensagem;
+    }
+
+    public int getPosicao() {
+        return posicao;
+    }
 
     @Override
     public String toString() {
