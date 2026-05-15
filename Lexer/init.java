@@ -18,7 +18,7 @@ public class Init {
 
         try {
             List<Token> tokens = lexer.getTokens();
-            System.out.println("=== Tokens reconhecidos ===");
+            System.out.println(" Tokens reconhecidos ")
             for (Token t : tokens) {
                 System.out.println(t);
             }

@@ -132,6 +132,8 @@ public class AnalisadorSemantico extends PrincipalParser {
         }
     }
 
+    // AQUI ELE GARANTE QUE NÃO SEJA CRIADA DUAS VARIAVEIS COM O MESMO NOME
+    // ----- declaracao simples: CAPS tipo ID $
     private void cmdDeclara() {
         consumeSafe(TipoToken.CAPS);
         TipoToken tk = consumirTipoDeclarado();
@@ -146,6 +148,9 @@ public class AnalisadorSemantico extends PrincipalParser {
         }
     }
 
+    // AQUI ELE PROTEJE CONTRA DECLARAR UM TIPO COMO INT E SETAR UMA STRING POR
+    // EXEMPLO
+    // ----- declaracao + atribuicao: SETCAPS tipo ID --> expr $
     private void cmdSetLine() {
         consumeSafe(TipoToken.SETCAPS);
         TipoToken tk = consumirTipoDeclarado();
@@ -167,6 +172,9 @@ public class AnalisadorSemantico extends PrincipalParser {
         }
     }
 
+    // AQUI ELE VAI VERIFICAR SE A VARIAVEL FOI DECLARADA MAS ESTA COMO NULL O QUE
+    // DEVE DAR ERRO.
+    // ----- atribuicao: SET ID --> expr $
     private void cmdSet() {
         consumeSafe(TipoToken.SET);
         Token id = consumeSafe(TipoToken.ID);
@@ -189,6 +197,7 @@ public class AnalisadorSemantico extends PrincipalParser {
         s.marcarUsado(); // atribuir tambem conta como referenciar
     }
 
+    // AVALIA SE O QUE FOI ESCRITO ESTA NO LUGAR CERTO
     // ----- insert(ID) $
     private void cmdLeitura() {
         consumeSafe(TipoToken.INSERT);
@@ -248,6 +257,8 @@ public class AnalisadorSemantico extends PrincipalParser {
         }
     }
 
+    // AQUI FAZEMOS O CONTROLE COM O ABRIR E FECHAR O ESCOPO, OU SEJA TUDO QUE É
+    // FEITO ALI DENTRO, SÓ FICA ALI, DECLARAR VARIAVEL ETC.
     // ----- ALT ( exprRel ) { bloco } (ALT_TAB ( exprRel ) { bloco })* (TAB { bloco
     // })?
     private void cmdSe() {
@@ -358,6 +369,7 @@ public class AnalisadorSemantico extends PrincipalParser {
         consumeSafe(TipoToken.HASH);
     }
 
+    // AVALIA SE A COMPARAÇÃO FAZ SENTIDO ENTE <,>,<=......
     // ----- expr op_rel expr -- retorna BOOL
     private Tipo exprRel() {
         Tipo esq = expr();
@@ -385,6 +397,8 @@ public class AnalisadorSemantico extends PrincipalParser {
         return Tipo.BOOL;
     }
 
+    // AQUI SE EM UMA CONTA EXEMPLO UMA SOMA, SE UM LADO FOR NUMERICO E O OUTRO NÃO
+    // VAI DAR ERRO E SE FOR INT COM FLOAT DA FLOAT
     // ----- expr -> fator (op_arit fator)*
     private Tipo expr() {
         Tipo acc = fator();
@@ -411,6 +425,7 @@ public class AnalisadorSemantico extends PrincipalParser {
         return acc;
     }
 
+    // VERIFICA SE TEM UMA VARIAVEL UMA EXPRESSÃO E UM NUMERO
     // ----- fator -> NUM | ID | ( expr )
     private Tipo fator() {
         if (check(TipoToken.NUM)) {
