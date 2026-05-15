@@ -1,0 +1,17 @@
+computador_iniciar
+
+CAPS numint a $
+CAPS numint b $
+CAPS numint c $
+
+
+prt_scr ( "Digite o numero a" ) $
+insert ( a ) $
+
+prt_scr ( "Digite o numero b ) $
+insert ( b ) $
+
+prt_scr ( "Digite o numero c" ) $
+insert ( c ) $
+
+computador_encerrar $

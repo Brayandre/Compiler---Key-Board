@@ -57,7 +57,7 @@ public class PrincipalLexer {
 
             if (t == null) {
                 throw new RuntimeException(
-                        "[ERRO LÉXICO] Símbolo não reconhecido: '" + code.current() + "'");
+                        "[ERRO LÉXICO] Símbolo não reconhecido: '" + code.current() + "'" + code.getIndex());
             }
 
             tokens.add(t);

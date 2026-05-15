@@ -2,7 +2,6 @@ computador_iniciar
 
 SETCAPS numint limite --> 5 $
 
-SETCAPS numint limite --> 2 $
 SETCAPS numint i --> 2 $
 
 ALTGR ( numint i $ : i < limite $ : i+#+# ) {

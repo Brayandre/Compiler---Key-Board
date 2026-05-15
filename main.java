@@ -18,11 +18,14 @@ public class Main {
 
         PrincipalLexer lexer = new PrincipalLexer(conteudo);
         List<Token> tokens = lexer.getTokens();
+        for (Token t : tokens) {
+            System.out.println(t);
+        }
         AnalisadorSemantico sem = new AnalisadorSemantico(tokens);
         List<ErroSemantico> erros = sem.analisar();
         List<ErroSemantico> warns = sem.getWarnings();
 
-        //verificação de erro semantico
+        // verificação de erro semantico
         for (ErroSemantico w : warns) {
             System.out.println("[WARN] " + w.getCategoria() + ": " + w.getMensagem());
         }
@@ -35,7 +38,7 @@ public class Main {
             return;
         }
 
-        //traducao para go
+        // traducao para go
         Tradutor tradutor = new Tradutor(tokens);
         String codigoGo = tradutor.traduzir();
         System.out.println(codigoGo);
