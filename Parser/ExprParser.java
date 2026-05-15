@@ -32,7 +32,7 @@ public class ExprParser extends PrincipalParser {
             consume(TipoToken.FP);
         } else {
             throw new RuntimeException(
-                "[ERRO SINTÁTICO] Fator esperado (NUM, ID ou expressão entre parênteses), " + "encontrado: \"" + peek().getLexema() + "\" (" + tipo() + ") na posição " + pos);
+                "ERRO SINTÁTICO: Fator esperado (NUM, ID ou expressão entre parênteses), " + "encontrado: \"" + peek().getLexema() + "\" (" + tipo() + ") na posição " + pos);
         }
     }
  
@@ -43,7 +43,7 @@ public class ExprParser extends PrincipalParser {
         if (check(TipoToken.OP_REL)) {
             pos++;
         } else {
-            throw new RuntimeException("[ERRO SINTÁTICO] Operador relacional esperado (<, >, <=, >=, !=, ==), " + "encontrado: \"" + peek().getLexema() + "\" na posição " + pos);
+            throw new RuntimeException("ERRO SINTÁTICO: Operador relacional esperado (<, >, <=, >=, !=, ==), " + "encontrado: \"" + peek().getLexema() + "\" na posição " + pos);
         }
     }
  
@@ -54,7 +54,7 @@ public class ExprParser extends PrincipalParser {
         if (check(TipoToken.OP_ARIT)) {
             pos++;
         } else {
-            throw new RuntimeException("[ERRO SINTÁTICO] Operador aritmético esperado (+, -, *, /), " + "encontrado: \"" + peek().getLexema() + "\" na posição " + pos);
+            throw new RuntimeException("ERRO SINTÁTICO: Operador aritmético esperado (+, -, *, /), " + "encontrado: \"" + peek().getLexema() + "\" na posição " + pos);
         }
     }
 }

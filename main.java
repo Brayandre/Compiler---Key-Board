@@ -16,21 +16,13 @@ public class Main {
 
         String conteudo = new String(new FileInputStream(args[0]).readAllBytes());
 
-        // 1) Analise lexica
         PrincipalLexer lexer = new PrincipalLexer(conteudo);
         List<Token> tokens = lexer.getTokens();
-
-        System.out.println("=== Tokens ===");
-        for (Token token : tokens) {
-            System.out.println(token);
-        }
-
-        // 2) Analise semantica (sobre os tokens, antes da traducao)
-        System.out.println("\n=== Analise Semantica ===");
         AnalisadorSemantico sem = new AnalisadorSemantico(tokens);
         List<ErroSemantico> erros = sem.analisar();
         List<ErroSemantico> warns = sem.getWarnings();
 
+        //verificação de erro semantico
         for (ErroSemantico w : warns) {
             System.out.println("[WARN] " + w.getCategoria() + ": " + w.getMensagem());
         }
@@ -42,15 +34,13 @@ public class Main {
             System.err.println("[ABORTADO] Traducao nao sera executada.");
             return;
         }
-        System.out.println("OK -- nenhum erro semantico.");
 
-        // 3) Traducao para Go (so executa se a semantica passou)
-        System.out.println("\n=== Codigo Go gerado ===");
+        //traducao para go
         Tradutor tradutor = new Tradutor(tokens);
         String codigoGo = tradutor.traduzir();
         System.out.println(codigoGo);
 
-        // 4) Grava o .go
+        // 4) salvando arquivo go
         String saida = args[0].replace(".kb", ".go");
         try (PrintWriter pw = new PrintWriter(saida)) {
             pw.print(codigoGo);
