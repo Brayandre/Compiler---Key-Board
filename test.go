@@ -4,11 +4,6 @@ import "fmt"
 
 func main() {
 	var limite int = 5
-<<<<<<< HEAD
-	var limite int = 2
-	var i int = 2
-=======
->>>>>>> 64cd75d9b22babdd270c6d08e9d3b9feffaabc9a
 	for i := 0; i < limite; i++ {
 		fmt.Println("valor de i", i)
 	}
