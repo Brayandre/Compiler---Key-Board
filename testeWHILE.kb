@@ -1,10 +1,19 @@
 computador_iniciar
 
 SETCAPS numint x --> 0 $
+SETCAPS numint y --> 0 $
+SETCAPS numint y --> 0 $
+CAPS numint abc $
+
 SETCAPS numint limite --> 5 $
 
 SHIFT ( x < limite ) {
 	prt_scr ( "valor de x" # x ) $
+	SHIFT ( y < limite ) {
+		prt_scr ( "valor de y" # y ) $
+		
+		SET y --> y + 1 $
+	}
 	SET x --> x + 1 $
 }
 
